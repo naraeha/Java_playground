@@ -80,22 +80,22 @@ public class Gugudan {
 //			System.out.println(7*k);
 //		}
 //		
-//		System.out.println("8, 9단");
-//		System.out.println("구구단 중 출력할 단은? : ");
-//		Scanner scanner = new Scanner(System.in);
-//		int number = scanner.nextInt();
-//		
-//		if (number < 2) {
-//			System.out.println("입력한 값이 너무 작습니다");
-//		}  else if (number > 9) {
-//			System.out.println("입력한 값이 너무 큽니다");
-//		} else {
-//		for (int k = 1; k<9; k++) {
-//	       System.out.println(number*k);
-//		} 
-//		}
-//		
-//		
+		System.out.println("8, 9단");
+		System.out.println("구구단 중 출력할 단은? : ");
+		Scanner scanner = new Scanner(System.in);
+		int number = scanner.nextInt();
+		
+		if (number < 2) {
+			System.out.println("입력한 값이 너무 작습니다");
+		}  else if (number > 9) {
+			System.out.println("입력한 값이 너무 큽니다");
+		} else {
+		for (int k = 1; k<9; k++) {
+	       System.out.println(number*k);
+		} 
+		}
+		
+		
 		
 
 	}
