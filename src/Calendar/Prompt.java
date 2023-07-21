@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Prompt {
 	
-	private final static String PROMPT	=	"cal> ";
 	
 	public void runPrompt() {
 		Scanner scanner = new Scanner(System.in);
@@ -12,16 +11,26 @@ public class Prompt {
 		System.out.println("반복횟수를 입력하세요.");
 		
 		int month = 1;	
-		while (true) {
+		int year = 1;
+		String dOW = null;
+		boolean run = true;
+		while (run) {
+		System.out.println("년도를 입력하세요.");
+		System.out.print("YEAR> ");
+		year = scanner.nextInt();
 		System.out.println("월을 입력하세요.");
-		System.out.print(PROMPT);
+		System.out.print("MONTH> ");
 		month = scanner.nextInt();
-		if (month == -1) {
-			break;
+		System.out.println("첫번째 요일을 입력하세요.");
+		System.out.print("WEEKDAY> ");
+		dOW = scanner.nextLine();
+		
+		if (month == -1||year == -1) {
+			run = false;
 		} else if (month>12){
 			continue;
 		} else {
-			cal.sampleCalendar(2023, month);			
+			cal.sampleCalendar(year, month);			
 		}
 		}
 		System.out.println("프로그램 종료");
