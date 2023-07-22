@@ -4,27 +4,7 @@ import java.util.Scanner;
 
 public class Prompt {
 		
-	public int parseDay(String week) {
-		if (week.equals("su")) {
-			return 0;
-		} else if (week.equals("mo"))	{
-			return 1;			
-		} else if (week.equals("tu")){ 
-			return 2;			
-		} else if (week.equals("wd")){ 
-			return 3;			
-		} else if (week.equals("th")){ 
-			return 4;			
-		} else if (week.equals("fr")){ 
-			return 5;			
-		} else if (week.equals("sa")){ 
-			return 6;			
-		} else {
-			return 0;
-		}
-		
-	}
-		 
+	
 	
 	
 	
@@ -35,7 +15,7 @@ public class Prompt {
 		
 		int month = 1;	
 		int year = 0;
-		int weekday = 0;
+		
 		
 		boolean run = true;
 		while (run) {
@@ -48,10 +28,7 @@ public class Prompt {
 		System.out.println("월을 입력하세요.");
 		System.out.print("MONTH> ");
 		month = scanner.nextInt();
-		System.out.println("첫번째 요일을 입력하세요.(su, mo ...");
-		System.out.print("WEEKDAY> ");
-		String str_weekday = scanner.next();
-		weekday = parseDay(str_weekday);
+		
 		
 		
 		
@@ -61,7 +38,7 @@ public class Prompt {
 			continue;
 		}
 		
-		cal.sampleCalendar(year, month, weekday);			
+		cal.sampleCalendar(year, month);			
 		}
 		System.out.println("프로그램 종료");
 		scanner.close();

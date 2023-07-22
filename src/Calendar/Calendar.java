@@ -1,9 +1,12 @@
 package Calendar;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 public class Calendar {
 	private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	private static final int[] LEAP_MAX_DAYS = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	
+		
 	public boolean isLeapYear(int year) {
 		if (year % 4 == 0 && year % 100 != 0 || year % 400 != 0)
 			return true;
@@ -18,12 +21,22 @@ public class Calendar {
 			return MAX_DAYS[month - 1];
 		}
 	}
+	
+	public int weekNumber(int year, int month) {
+		LocalDate date = LocalDate.of(year, month, 1);
+		DayOfWeek dayOfWeek = date.getDayOfWeek();
+		int dayOfWeekNumber = dayOfWeek.getValue();
+		return dayOfWeekNumber;
+	}
 
 	
-	public void sampleCalendar(int year, int month, int weekday) {
-		System.out.printf("<<%4d년%3d월>>\n",year,month);
+	public void sampleCalendar(int year, int month) {
+		System.out.printf("<<%d년%d월>>\n",year,month);
 		System.out.println("SU MO TU WD TH FR SA");
 		System.out.println("--------------------------");
+		
+		//get weekday automatically
+		int weekday = weekNumber(year, month);
 		
 		for (int i = 0; i<weekday; i++) {
 			System.out.print("   ");
