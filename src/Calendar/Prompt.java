@@ -17,7 +17,7 @@ public class Prompt {
 			return 4;			
 		} else if (week.equals("fr")){ 
 			return 5;			
-		} else if (week.equals("sa2")){ 
+		} else if (week.equals("sa")){ 
 			return 6;			
 		} else {
 			return 0;
@@ -42,6 +42,9 @@ public class Prompt {
 		System.out.println("년도를 입력하세요.");
 		System.out.print("YEAR> ");
 		year = scanner.nextInt();
+		if (year == -1) {
+			break;
+		}
 		System.out.println("월을 입력하세요.");
 		System.out.print("MONTH> ");
 		month = scanner.nextInt();
@@ -53,13 +56,12 @@ public class Prompt {
 		
 		
 		
-		if (month == -1||year == -1) {
-			run = false;
-		} else if (month>12){
+		if (month > 12 || month <1) {
+			System.out.println("잘못된 입력입니다.");
 			continue;
-		} else {
-			cal.sampleCalendar(year, month, weekday);			
 		}
+		
+		cal.sampleCalendar(year, month, weekday);			
 		}
 		System.out.println("프로그램 종료");
 		scanner.close();

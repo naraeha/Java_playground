@@ -30,7 +30,18 @@ public class Calendar {
 		}
 		int maxDay = maxDaysOfMonth(year, month);
 		int count =  7 - weekday;
-		int daylimit = count;
+		
+		int daylimit = (count < 7) ? count : 0;
+		
+		/*
+		 int daylimit = 0;
+		 if (count < 7) {
+		 
+			daylimit = count;
+		} else {
+			daylimit = 0;
+		}
+		*/
 		
 		//print first line
 		for (int i = 1; i <= count; i++) {
