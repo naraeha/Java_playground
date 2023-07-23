@@ -1,14 +1,44 @@
 package Calendar;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 public class Calendar {
-	private static final int[] MAX_DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	private static final int[] LEAP_MAX_DAYS = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	private static final int[] MAX_DAYS = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	private static final int[] LEAP_MAX_DAYS = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	
+	private HashMap <Date, String> planMap;
+	
+	public Calendar() {
+		planMap = new HashMap<Date, String>();
+	}
+	
+	/*
+	 * 
+	 * 
+	 *  date ex: "2023-7-23"
+	 *  plan
+	 */
+	
+	
+	public void registerPlan(String strDate, String plan) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		//System.out.println(date);
+		planMap.put(date, plan);
 		
+	}
+	
+	public String searchPlan(String strDate) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		String plan = planMap.get(date);
+		return plan;
+	}
+	
 	public boolean isLeapYear(int year) {
-		if (year % 4 == 0 && year % 100 != 0 || year % 400 != 0)
+		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
 			return true;
 		else
 			return false;
@@ -16,19 +46,39 @@ public class Calendar {
 	
 	public int maxDaysOfMonth(int year, int month) {
 		if (isLeapYear(year)) {
-			return LEAP_MAX_DAYS[month - 1];
+			return LEAP_MAX_DAYS[month];
 		}else {
-			return MAX_DAYS[month - 1];
+			return MAX_DAYS[month];
 		}
 	}
 	
-	public int weekNumber(int year, int month) {
-		LocalDate date = LocalDate.of(year, month, 1);
-		DayOfWeek dayOfWeek = date.getDayOfWeek();
-		int dayOfWeekNumber = dayOfWeek.getValue();
-		return dayOfWeekNumber;
+	
+	private int getWeekday(int year, int month, int day) {
+		int syear = 1970;
+		final int STANDARD_WEEKDAY = 4; //1970 1 1 = 목요일 Thursday
+		
+		int count = 0;
+		
+		for (int i = syear; i<year; i++) {
+			int delta;
+			if (isLeapYear(year)) {
+				delta = 366;
+			}else{
+				delta = 365;
+			};
+		
+			count += delta;
+		}
+		
+		for (int i = 1; i < month; i++) {
+			int delta = maxDaysOfMonth(year, i);
+			count += delta;
+		}
+		count += day - 1 ;
+		
+		int weekday = (count + STANDARD_WEEKDAY) % 7;
+		return weekday;
 	}
-
 	
 	public void sampleCalendar(int year, int month) {
 		System.out.printf("<<%d년%d월>>\n",year,month);
@@ -36,7 +86,7 @@ public class Calendar {
 		System.out.println("--------------------------");
 		
 		//get weekday automatically
-		int weekday = weekNumber(year, month);
+		int weekday = getWeekday(year, month, 1);
 		
 		for (int i = 0; i<weekday; i++) {
 			System.out.print("   ");
@@ -77,12 +127,18 @@ public class Calendar {
 	}
 	
 	
-	public static void main(String[] args) {
+	
+	public static void main(String[] args) throws ParseException {
 		
+		Calendar cal = new Calendar();
+		System.out.println(cal.getWeekday(1970, 1, 1));
+		System.out.println(cal.getWeekday(1971, 1, 1));
+		System.out.println(cal.getWeekday(1972, 1, 1));
+		System.out.println(cal.getWeekday(1973, 1, 1));
+		System.out.println(cal.getWeekday(1974, 1, 1));
 		
-		
-		
-
+		cal.registerPlan("2023-07-23", "소고기 먹는 날!");
+		System.out.println(cal.searchPlan("2023-07-23").equals("소고기 먹는 날!"));
 	}
 
 }
